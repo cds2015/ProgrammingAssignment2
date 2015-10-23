@@ -10,13 +10,17 @@
 ## The super assignment operator << makes it posible to cache the inverse.
 
 makeCacheMatrix <- function(x = matrix()) {
+# assign inverseMatrix as NULL value
 inv <- NULL
   set <- function(y) {
     x <<- y
     inv <<- NULL
   }
+  # get function to get Matrix
   get <- function() x
+  # set function to set a new Matrix
   setinverse <- function(inverse) inv <<- inverse
+  # getInverse to get InverseMatrix
   getinverse <- function() inv
   list(set=set, get=get, setinverse=setinverse, getinverse=getinverse)
 }
@@ -28,11 +32,13 @@ inv <- NULL
 
 cacheSolve <- function(x, ...) {
         ## Return a matrix that is the inverse of 'x'
+		# query and asssigning inverseMatrix cached value
   inv <- x$getinverse()
   if(!is.null(inv)) {
     message("getting cached data.")
     return(inv)
   }
+  # get matrix and calculating inverse
   data <- x$get()
   inv <- solve(data)
   x$setinverse(inv)
